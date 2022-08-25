@@ -24,4 +24,12 @@ module.exports = {
         res.send("error while querying wilders");
       });
   },
+  delete: (req, res) => {
+    dataSource
+      .getRepository(Wilder)
+      .delete(req.body)
+      .then(() => {
+        res.send("deleted");
+      });
+  },
 };
