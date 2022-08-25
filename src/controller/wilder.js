@@ -32,4 +32,12 @@ module.exports = {
         res.send("deleted");
       });
   },
+  update: (req, res) => {
+    dataSource
+      .getRepository(Wilder)
+      .update(req.body.id, req.body.newData)
+      .then(() => {
+        res.send("Updated");
+      });
+  },
 };

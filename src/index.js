@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 app.post("/api/wilder", wilderController.create);
 app.get("/api/wilder", wilderController.read);
 app.delete("/api/wilder", wilderController.delete);
+app.put("/api/wilder", wilderController.update);
 const start = async () => {
   await dataSource.initialize();
   app.listen(3000, () => console.log("Server started on 3000"));
