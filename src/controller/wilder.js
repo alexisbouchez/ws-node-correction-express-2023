@@ -13,7 +13,7 @@ module.exports = {
   },
   read: async (req, res) => {
     try {
-      await dataSource.getRepository(Wilder).find();
+      const data = await dataSource.getRepository(Wilder).find();
       res.send(data);
     } catch (error) {
       res.send("error while querying wilders");
