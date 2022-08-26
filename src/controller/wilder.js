@@ -17,6 +17,7 @@ module.exports = {
       const data = await dataSource.getRepository(Wilder).find();
       res.send(data);
     } catch (error) {
+      console.log(error);
       res.send("error while querying wilders");
     }
   },
