@@ -1,6 +1,7 @@
 const dataSource = require("../utils").dataSource;
 const Wilder = require("../entity/Wilder");
 const Skill = require("../entity/Skill");
+const Grade = require("../entity/Grade");
 
 module.exports = {
   create: async (req, res) => {
@@ -14,7 +15,24 @@ module.exports = {
   },
   read: async (req, res) => {
     try {
-      const data = await dataSource.getRepository(Wilder).find();
+      const grades = await dataSource.getRepository(Grade).find();
+      console.log(grades);
+      const wilders = await dataSource.getRepository(Wilder).find();
+      console.log("wilders", wilders);
+      const data = wilders.map((wilder) => {
+        const wilderGrades = grades.filter(
+          (grade) => grade.wilder.id === wilder.id
+        );
+        const wilderGradesLean = wilderGrades.map((el) => {
+          return { title: el.skill.name, votes: el.grade };
+        });
+        const result = {
+          ...wilder,
+          skills: wilderGradesLean,
+        };
+        console.log(result);
+        return result;
+      });
       res.send(data);
     } catch (error) {
       console.log(error);
