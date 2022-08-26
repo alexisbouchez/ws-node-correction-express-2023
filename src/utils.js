@@ -10,5 +10,6 @@ module.exports = {
       require("./entity/Skill"),
       require("./entity/Grade"),
     ],
+    logging: ["query", "error"],
   }),
 };
