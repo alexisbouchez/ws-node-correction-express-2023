@@ -11,5 +11,9 @@ module.exports = new EntitySchema({
     name: {
       type: "text",
     },
+    city: {
+      type: "text",
+      nullable: true,
+    },
   },
 });
