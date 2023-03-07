@@ -10,7 +10,7 @@ class SkillController {
       res.send("Created skill");
     } catch (error) {
       console.log(error);
-      res.send("Error while creating skill");
+      res.status(500).send("Error while creating skill");
     }
   }
 
@@ -20,7 +20,7 @@ class SkillController {
       res.send(data);
     } catch (error) {
       console.log(error);
-      res.send("error while querying skills");
+      res.status(500).send("error while querying skills");
     }
   }
 
@@ -30,7 +30,7 @@ class SkillController {
       res.send("Updated");
     } catch (error) {
       console.log(error);
-      res.send("error while updating skill");
+      res.status(500).send("error while updating skill");
     }
   }
 
@@ -40,7 +40,7 @@ class SkillController {
       res.send("deleted");
     } catch (error) {
       console.log(error);
-      res.send("error while deleting skill");
+      res.status(500).send("error while deleting skill");
     }
   }
 }

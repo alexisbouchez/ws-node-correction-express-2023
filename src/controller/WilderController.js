@@ -10,8 +10,14 @@ class WilderController {
       await dataSource.getRepository(Wilder).save(req.body);
       res.send("Created wilder");
     } catch (error) {
+      if (error.code === "SQLITE_CONSTRAINT") {
+        // Throw conflict error if email already exists
+        res.status(409).send("Email already exists");
+        return;
+      }
+
       console.log(error);
-      res.send("Error while creating wilder");
+      res.status(500).send("Error while creating wilder");
     }
   }
 
@@ -23,7 +29,7 @@ class WilderController {
       res.send(wilders);
     } catch (error) {
       console.log(error);
-      res.send("error while querying wilders");
+      res.status(500).send("error while querying wilders");
     }
   }
 
@@ -32,8 +38,14 @@ class WilderController {
       await this.wilderRepository.update(req.body.id, req.body.newData);
       res.send("Updated");
     } catch (error) {
+      if (error.code === "SQLITE_CONSTRAINT") {
+        // Throw conflict error if email already exists
+        res.status(409).send("Email already exists");
+        return;
+      }
+
       console.log(error);
-      res.send("error while updating wilder");
+      res.status(500).send("error while updating wilder");
     }
   }
 
@@ -43,7 +55,7 @@ class WilderController {
       res.send("deleted");
     } catch (error) {
       console.log(error);
-      res.send("error while deleting wilder");
+      res.status(500).send("error while deleting wilder");
     }
   }
 
@@ -61,7 +73,7 @@ class WilderController {
       res.send("Skill added to wilder");
     } catch (err) {
       console.log(err);
-      res.send("error while adding skill to wilder");
+      res.status(500).send("error while adding skill to wilder");
     }
   }
 }
