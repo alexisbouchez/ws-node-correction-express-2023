@@ -1,43 +1,48 @@
 const dataSource = require("../utils").dataSource;
 const Skill = require("../entity/Skill");
 
-module.exports = {
-  create: async (req, res) => {
+class SkillController {
+  static skillRepository = dataSource.getRepository(Skill);
+
+  static async create(req, res) {
     try {
-      await dataSource.getRepository(Skill).save(req.body);
+      await this.skillRepository.save(req.body);
       res.send("Created skill");
     } catch (error) {
       console.log(error);
       res.send("Error while creating skill");
     }
-  },
-  read: async (req, res) => {
+  }
+
+  static async read(req, res) {
     try {
-      const data = await dataSource.getRepository(Skill).find();
+      const data = await this.skillRepository.find();
       res.send(data);
     } catch (error) {
       console.log(error);
       res.send("error while querying skills");
     }
-  },
-  update: async (req, res) => {
+  }
+
+  static async update(req, res) {
     try {
-      await dataSource
-        .getRepository(Skill)
-        .update(req.body.id, req.body.newData);
+      await this.skillRepository.update(req.body.id, req.body.newData);
       res.send("Updated");
     } catch (error) {
       console.log(error);
       res.send("error while updating skill");
     }
-  },
-  delete: async (req, res) => {
+  }
+
+  static async delete(req, res) {
     try {
-      await dataSource.getRepository(Skill).delete(req.body);
+      await this.skillRepository.delete(req.body);
       res.send("deleted");
     } catch (error) {
       console.log(error);
       res.send("error while deleting skill");
     }
-  },
-};
+  }
+}
+
+module.exports = SkillController;

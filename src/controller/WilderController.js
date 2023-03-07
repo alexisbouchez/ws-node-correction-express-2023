@@ -2,8 +2,10 @@ const dataSource = require("../utils").dataSource;
 const Wilder = require("../entity/Wilder");
 const Skill = require("../entity/Skill");
 
-module.exports = {
-  create: async (req, res) => {
+class WilderController {
+  static wilderRepository = dataSource.getRepository(Wilder);
+
+  static async create(req, res) {
     try {
       await dataSource.getRepository(Wilder).save(req.body);
       res.send("Created wilder");
@@ -11,8 +13,9 @@ module.exports = {
       console.log(error);
       res.send("Error while creating wilder");
     }
-  },
-  read: async (req, res) => {
+  }
+
+  static async read(req, res) {
     try {
       const wilders = await dataSource.getRepository(Wilder).find();
       console.log("wilders", wilders);
@@ -22,19 +25,19 @@ module.exports = {
       console.log(error);
       res.send("error while querying wilders");
     }
-  },
-  update: async (req, res) => {
+  }
+
+  static async update(req, res) {
     try {
-      await dataSource
-        .getRepository(Wilder)
-        .update(req.body.id, req.body.newData);
+      await this.wilderRepository.update(req.body.id, req.body.newData);
       res.send("Updated");
     } catch (error) {
       console.log(error);
       res.send("error while updating wilder");
     }
-  },
-  delete: async (req, res) => {
+  }
+
+  static async delete(req, res) {
     try {
       await dataSource.getRepository(Wilder).delete(req.body);
       res.send("deleted");
@@ -42,12 +45,13 @@ module.exports = {
       console.log(error);
       res.send("error while deleting wilder");
     }
-  },
-  addSkill: async (req, res) => {
+  }
+
+  static async addSkill(req, res) {
     try {
-      const wilderToUpdate = await dataSource
-        .getRepository(Wilder)
-        .findOneBy({ name: req.body.wilderName });
+      const wilderToUpdate = await this.wilderRepository.findOneBy({
+        name: req.body.wilderName,
+      });
       console.log(wilderToUpdate);
       const skillToAdd = await dataSource
         .getRepository(Skill)
@@ -59,5 +63,7 @@ module.exports = {
       console.log(err);
       res.send("error while adding skill to wilder");
     }
-  },
-};
+  }
+}
+
+module.exports = WilderController;
