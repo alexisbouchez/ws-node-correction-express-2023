@@ -8,6 +8,15 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
+app.use((req, res, next) => {
+  if (Math.random() < 0.33) {
+    res.status(418).send("I'm a teapot");
+    // Log the request ip, method and url
+    console.log(`${req.ip} ${req.method} ${req.url}`);
+    return;
+  }
+  next();
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World");
