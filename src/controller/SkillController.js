@@ -20,15 +20,6 @@ module.exports = {
       res.send("error while querying skills");
     }
   },
-  delete: async (req, res) => {
-    try {
-      await dataSource.getRepository(Skill).delete(req.body);
-      res.send("deleted");
-    } catch (error) {
-      console.log(error);
-      res.send("error while deleting skill");
-    }
-  },
   update: async (req, res) => {
     try {
       await dataSource
@@ -38,6 +29,15 @@ module.exports = {
     } catch (error) {
       console.log(error);
       res.send("error while updating skill");
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      await dataSource.getRepository(Skill).delete(req.body);
+      res.send("deleted");
+    } catch (error) {
+      console.log(error);
+      res.send("error while deleting skill");
     }
   },
 };
