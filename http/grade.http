@@ -1,36 +1,22 @@
-POST http://localhost:5000/api/grade
+POST http://localhost:5000/api/wilder/2/skill/2/grade
 Content-Type: application/json
 
 {
-    "wilderId": "3",
-    "skillId": "1",
     "grade": "5"
 }
 
 ###
 
-GET http://localhost:5000/api/grade/
-
-{
-    "wilderId": "3",
-    "skillId": "1",
-}
+GET http://localhost:5000/api/wilder/2/grade
 
 ###
 
-PUT http://localhost:5000/api/grade/
+PUT http://localhost:5000/api/grade/1
 
 {
-    "wilderId": "3",
-    "skillId": "1",
     "grade": "4"
 }
 
 ###
 
-DELETE http://localhost:5000/api/grade/
-
-{
-    "wilderId": "3",
-    "skillId": "1",
-}
+DELETE http://localhost:5000/api/grade/1

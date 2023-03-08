@@ -1,15 +1,15 @@
-POST http://localhost:3000/api/skill
+POST http://localhost:5000/api/skill
 Content-Type: application/json
 
 {
-    "name": "Javascript"
+    "name": "GraphQL"
 }
 
 ###
-GET http://localhost:3000/api/skill
+GET http://localhost:5000/api/skill
 
 ###
-DELETE http://localhost:3000/api/skill
+DELETE http://localhost:5000/api/skill
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/skill
+PUT http://localhost:5000/api/skill
 Content-Type: application/json
 
 {

@@ -2,11 +2,9 @@ const dataSource = require("../utils").dataSource;
 const Skill = require("../entity/Skill");
 
 class SkillController {
-  static skillRepository = dataSource.getRepository(Skill);
-
   static async create(req, res) {
     try {
-      await this.skillRepository.save(req.body);
+      await dataSource.getRepository(Skill).save(req.body);
       res.send("Created skill");
     } catch (error) {
       console.log(error);
@@ -16,7 +14,7 @@ class SkillController {
 
   static async read(req, res) {
     try {
-      const data = await this.skillRepository.find();
+      const data = await dataSource.getRepository(Skill).find();
       res.send(data);
     } catch (error) {
       console.log(error);
@@ -26,7 +24,9 @@ class SkillController {
 
   static async update(req, res) {
     try {
-      await this.skillRepository.update(req.body.id, req.body.newData);
+      await dataSource
+        .getRepository(Skill)
+        .update(req.body.id, req.body.newData);
       res.send("Updated");
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ class SkillController {
 
   static async delete(req, res) {
     try {
-      await this.skillRepository.delete(req.body);
+      await dataSource.getRepository(Skill).delete(req.body);
       res.send("deleted");
     } catch (error) {
       console.log(error);

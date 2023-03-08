@@ -25,16 +25,20 @@ app.get("/", (req, res) => {
 
 app.post("/api/wilder", WilderController.create);
 app.get("/api/wilder", WilderController.read);
-app.delete("/api/wilder", WilderController.delete);
-app.put("/api/wilder", WilderController.update);
+app.delete("/api/wilder/:id", WilderController.delete);
+app.put("/api/wilder/:id", WilderController.update);
+app.post(
+  "/api/wilder/:wilderId/skills/:skillId/add",
+  WilderController.addSkill
+);
 
 app.post("/api/skill", SkillController.create);
 app.get("/api/skill", SkillController.read);
-app.put("/api/skill", SkillController.update);
-app.delete("/api/skill", SkillController.delete);
+app.put("/api/skill/:id", SkillController.update);
+app.delete("/api/skill/:id", SkillController.delete);
 
 app.post("/api/wilder/:wilderId/skill/:skillId/grade", GradeController.create);
-app.get("/api/wilder/:wilderId/skill/:skillId/grade", GradeController.read);
+app.get("/api/wilder/:wilderId/grade", GradeController.read);
 app.put("/api/grade/:gradeId", GradeController.update);
 app.delete("/api/grade/:gradeId", GradeController.delete);
 

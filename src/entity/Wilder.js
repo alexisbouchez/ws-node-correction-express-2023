@@ -20,4 +20,12 @@ module.exports = new EntitySchema({
       nullable: true,
     },
   },
+  relations: {
+    skills: {
+      type: "many-to-many",
+      target: "Skill",
+      joinTable: true,
+      eager: true,
+    },
+  },
 });

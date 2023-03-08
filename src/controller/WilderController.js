@@ -3,8 +3,6 @@ const Wilder = require("../entity/Wilder");
 const Skill = require("../entity/Skill");
 
 class WilderController {
-  static wilderRepository = dataSource.getRepository(Wilder);
-
   static async create(req, res) {
     try {
       await dataSource.getRepository(Wilder).save(req.body);
@@ -24,7 +22,6 @@ class WilderController {
   static async read(req, res) {
     try {
       const wilders = await dataSource.getRepository(Wilder).find();
-      console.log("wilders", wilders);
 
       res.send(wilders);
     } catch (error) {
@@ -35,7 +32,7 @@ class WilderController {
 
   static async update(req, res) {
     try {
-      await this.wilderRepository.update(req.body.id, req.body.newData);
+      await dataSource.getRepository(Wilder).update(req.params.id, req.body);
       res.send("Updated");
     } catch (error) {
       if (error.code === "SQLITE_CONSTRAINT") {
@@ -51,28 +48,40 @@ class WilderController {
 
   static async delete(req, res) {
     try {
-      await dataSource.getRepository(Wilder).delete(req.body);
+      await dataSource.getRepository(Wilder).delete(req.params.id);
       res.send("deleted");
     } catch (error) {
-      console.log(error);
       res.status(500).send("error while deleting wilder");
     }
   }
 
   static async addSkill(req, res) {
     try {
-      const wilderToUpdate = await this.wilderRepository.findOneBy({
-        name: req.body.wilderName,
+      // On récupère le wilder à modifier
+      const wilderToUpdate = await dataSource.getRepository(Wilder).findOneBy({
+        id: req.params.wilderId,
       });
-      console.log(wilderToUpdate);
+      if (!wilderToUpdate) {
+        return res.status(404).send("Wilder not found");
+      }
+
+      // On récupère la skill à ajouter
       const skillToAdd = await dataSource
         .getRepository(Skill)
-        .findOneBy({ name: req.body.skillName });
+        .findOneBy({ id: req.params.skillId });
+      if (!skillToAdd) {
+        return res.status(404).send("Skill not found");
+      }
+
+      // On ajoute la skill au wilder
       wilderToUpdate.skills = [...wilderToUpdate.skills, skillToAdd];
+
+      // On sauvegarde le wilder
       await dataSource.getRepository(Wilder).save(wilderToUpdate);
+
+      // On renvoie une réponse
       res.send("Skill added to wilder");
-    } catch (err) {
-      console.log(err);
+    } catch {
       res.status(500).send("error while adding skill to wilder");
     }
   }
