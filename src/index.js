@@ -3,6 +3,7 @@ const cors = require("cors");
 const dataSource = require("./utils").dataSource;
 const WilderController = require("./controller/WilderController");
 const SkillController = require("./controller/SkillController");
+const GradeController = require("./controller/GradeController");
 
 const app = express();
 
@@ -31,6 +32,11 @@ app.post("/api/skill", SkillController.create);
 app.get("/api/skill", SkillController.read);
 app.put("/api/skill", SkillController.update);
 app.delete("/api/skill", SkillController.delete);
+
+app.post("/api/wilder/:wilderId/skill/:skillId/grade", GradeController.create);
+app.get("/api/wilder/:wilderId/skill/:skillId/grade", GradeController.read);
+app.put("/api/grade/:gradeId", GradeController.update);
+app.delete("/api/grade/:gradeId", GradeController.delete);
 
 app.use((req, res, next) => {
   res.status(404).send("Sorry can't find that!");
