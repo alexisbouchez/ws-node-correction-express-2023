@@ -1,0 +1,1 @@
+CREATE TABLE "wilder" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" text NOT NULL, "email" text NOT NULL, "city" text, CONSTRAINT "UQ_33180d2b6dec5d8c5ef07cb0df3" UNIQUE ("email"));

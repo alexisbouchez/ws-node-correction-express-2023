@@ -1,0 +1,1 @@
+SELECT "Wilder"."id" AS "Wilder_id", "Wilder"."name" AS "Wilder_name", "Wilder"."email" AS "Wilder_email", "Wilder"."city" AS "Wilder_city" FROM "wilder" "Wilder";
