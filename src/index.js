@@ -9,15 +9,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
-app.use((req, res, next) => {
-  if (Math.random() < 0.33) {
-    res.status(418).send("I'm a teapot");
-    // Log the request ip, method and url
-    console.log(`${req.ip} ${req.method} ${req.url}`);
-    return;
-  }
-  next();
-});
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -27,10 +18,7 @@ app.post("/api/wilder", WilderController.create);
 app.get("/api/wilder", WilderController.read);
 app.delete("/api/wilder/:id", WilderController.delete);
 app.put("/api/wilder/:id", WilderController.update);
-app.post(
-  "/api/wilder/:wilderId/skills/:skillId/add",
-  WilderController.addSkill
-);
+app.post("/api/wilder/:wilderId/skill/:skillId/add", WilderController.addSkill);
 
 app.post("/api/skill", SkillController.create);
 app.get("/api/skill", SkillController.read);
